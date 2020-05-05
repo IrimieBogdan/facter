@@ -1,8 +1,6 @@
 test_name "C100153: custom fact with weight of >= 10001 overrides an external fact" do
   tag 'risk:high'
 
-  confine :except, :platform => /ubunut/
-
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils
 

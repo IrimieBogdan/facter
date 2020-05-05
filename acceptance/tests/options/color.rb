@@ -3,7 +3,7 @@ test_name "C86545: --debug and --color command-line options should print DEBUG m
   tag 'risk:high'
 
   confine :except, :platform => 'windows' # On windows we don't get an escape sequence to detect to color change
-  confine :except, :platform => /ubunut/
+  confine :except, :platform => /ubuntu/
 
   agents.each do |agent|
     step "Agent #{agent}: retrieve debug info from stderr using --debug and --color option" do

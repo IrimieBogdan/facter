@@ -8,7 +8,7 @@ test_name "C59201: Fact directory precedence and resolution order for facts" do
   tag 'risk:high'
 
   confine :except, :platform => 'windows' # windows only supports 1 directory instead of 3 on unix
-  confine :except, :platform => /ubunut/
+  confine :except, :platform => /ubuntu/
 
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils

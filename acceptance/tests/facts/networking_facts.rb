@@ -1,7 +1,7 @@
 test_name 'C59029: networking facts should be fully populated' do
   tag 'risk:high'
 
-  confine :except, :platform => /ubunut/
+  confine :except, :platform => /ubuntu/
 
 #
 # This test is intended to ensure that networking facts resolves

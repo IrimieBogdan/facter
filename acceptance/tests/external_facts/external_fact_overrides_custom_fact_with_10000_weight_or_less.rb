@@ -1,6 +1,8 @@
 test_name "C100151: external fact overrides a custom fact of weight 10000 or less" do
   tag 'risk:high'
 
+  confine :except, :platform => /ubuntu/
+
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils
 
