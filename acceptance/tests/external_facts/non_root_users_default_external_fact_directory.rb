@@ -10,6 +10,7 @@ test_name "C64580: Non-root default user external facts directory is searched fo
   confine :except, :platform => 'osx' # does not support managehome
   confine :except, :platform => 'solaris' # does not work with managehome on solaris boxes
   confine :except, :platform => 'eos-' # does not support user creation ARISTA-37
+  confine :except, :platform => /ubunut/
 
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils

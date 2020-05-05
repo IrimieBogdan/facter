@@ -1,5 +1,6 @@
 test_name 'C98098: --strict flag returns errors on non-existent facts' do
   tag 'risk:high'
+  confine :except, :platform => /ubunut/
 
   agents.each do |agent|
     step 'facter should return exit code 1 for querying non-existing-fact with --strict flag' do
