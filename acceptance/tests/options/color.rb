@@ -4,6 +4,7 @@ test_name "C86545: --debug and --color command-line options should print DEBUG m
 
   confine :except, :platform => 'windows' # On windows we don't get an escape sequence to detect to color change
   confine :except, :platform => /ubuntu/
+  confine :except, :platform => /osx/
 
   agents.each do |agent|
     step "Agent #{agent}: retrieve debug info from stderr using --debug and --color option" do
