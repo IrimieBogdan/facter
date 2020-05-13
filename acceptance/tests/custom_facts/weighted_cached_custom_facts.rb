@@ -1,7 +1,8 @@
 test_name 'ttls configured weighted custom facts files creates cache file and reads cache file depending on weight' do
   tag 'risk:high'
 
-  confine :to, :platform => /Skipped/
+  confine :except, :platform => /ubuntu/
+  confine :except, :platform => /osx/
 
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils
