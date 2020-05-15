@@ -1,9 +1,6 @@
 test_name "C64315: external facts that print messages to stderr should be seen on stderr" do
   tag 'risk:high'
 
-  confine :except, :platform => /ubuntu/
-  confine :except, :platform => /osx/
-
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils
 
