@@ -9,6 +9,7 @@ test_name 'Should handle same filename in two external directories only if ttl i
 
   confine :except, :platform => /ubuntu/
   confine :except, :platform => /osx/
+  confine :except, :platform => /windows/
 
   require 'facter/acceptance/user_fact_utils'
   extend Facter::Acceptance::UserFactUtils
