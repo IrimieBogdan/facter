@@ -45,7 +45,7 @@ test_name 'C100161: Ruby can load libfacter without raising an error' do
     if agent['platform'] =~ /windows/
       # on Windows we have to figure out where facter.rb is so we can include the path
       # figure out the root of the Puppet installation
-      puppet_ruby_path = agent.which('ruby', agent['privatebindir'])
+      puppet_ruby_path = agent.which('ruby')
       puppet_root = puppet_ruby_path_to_puppet_install_dir(puppet_ruby_path)
       # on Windows mco uses -I to include the path to the facter.rb as its not in the
       # default $LOAD_PATH for Puppets Ruby
