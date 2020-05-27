@@ -54,8 +54,9 @@ FILE
       on(agent, facter("--no-cache")) do |facter_output|
         assert_no_match(/caching/, facter_output.stderr, "facter should not have tried to refresh the cache")
       end
+
       cat_output = agent.cat(cached_fact_file)
-      assert_match(/#{bad_cached_content}/, cat_output.stdout, "facter should not have updated the cached value")
+      assert_match(/#{bad_cached_content.chomp}/, cat_output.strip, "facter should not have updated the cached value")
     end
   end
 end

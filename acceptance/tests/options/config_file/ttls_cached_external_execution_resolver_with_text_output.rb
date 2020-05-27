@@ -56,8 +56,8 @@ EOM
         on(agent, facter("--external-dir \"#{external_dir}\" --debug #{cached_fact_name}")) do |facter_output|
           assert_match(/caching values for .+ facts/, facter_output.stderr, "Expected debug message to state that values will be cached")
         end
-        cat_output = agent.cat(cached_fact_file)        
-        assert_match(/#{cached_fact_name}/, cat_output.stdout, "Expected cached fact file to contain fact information")
+        cat_output = agent.cat(cached_fact_file)
+        assert_match(/#{cached_fact_name}/, cat_output.strip, "Expected cached fact file to contain fact information")
       end
 
       step "should read from a cached JSON file for a fact that has been cached" do

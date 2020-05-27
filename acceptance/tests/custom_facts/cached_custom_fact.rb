@@ -68,10 +68,10 @@ test_name 'ttls configured custom facts files creates cache file and reads cache
       result = agent.file_exist?("#{cache_folder}/cached-custom-facts")
       assert_equal(true, result)
       cat_output = agent.cat( "#{cache_folder}/cached-custom-facts")
-      assert_match(cached_file_content.chomp, cat_output.stdout, 'Expected cached custom fact file to contain fact information')
+      assert_match(cached_file_content.chomp, cat_output.strip, 'Expected cached custom fact file to contain fact information')
     end
-    
-		step 'should read from the cached file for a custom fact that has been cached' do
+
+    step 'should read from the cached file for a custom fact that has been cached' do
       on(agent, facter("#{custom_fact_name} --debug", environment: env)) do |facter_result|
         assert_match(/Loading cached custom facts from file ".+"|loading cached values for cached-custom-facts facts/, facter_result.stderr,
                      'Expected debug message to state that cached custom facts are read from file')

@@ -2,13 +2,11 @@
 test_name "C14783: facter -p loads facts from puppet" do
   tag 'risk:high'
 
-  confine :to, :platform => /Skipped/
-
   agents.each do |agent|
     external_dir = agent.puppet['pluginfactdest']
     external_file = File.join(external_dir, "external.txt")
     custom_dir = File.join(agent.puppet['plugindest'], "facter")
-    custom_file = File.join("#{custom_dir}, 'custom.rb")
+    custom_file = File.join(custom_dir, 'custom.rb')
 
     teardown do
       agent.rm_rf(external_file)

@@ -45,7 +45,7 @@ EOM
           assert_match(/.+/, stdout, "Expected fact to be resolved")
         end
         cat_output = agent.cat(cached_fact_file)
-        assert_match(/#{cached_factname}/, cat_output.stdout, "Expected cachced fact to contain the fact name")
+        assert_match(/#{cached_factname}/, cat_output.strip, "Expected cachced fact to contain the fact name")
       end
     end
   end

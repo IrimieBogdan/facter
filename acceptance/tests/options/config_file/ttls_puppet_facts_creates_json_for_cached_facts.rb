@@ -38,7 +38,7 @@ EOM
           assert_match(/caching values for .+ facts/, pupppet_fact_output.stdout, "Expected debug message to state that values will be cached")
         end
         cat_output = agent.cat(cached_fact_file)
-        assert_match(/#{cached_factname}/, cat_output.stdout, "Expected cached fact file to contain fact information")
+        assert_match(/#{cached_factname}/, cat_output.strip, "Expected cached fact file to contain fact information")
       end
     end
   end
