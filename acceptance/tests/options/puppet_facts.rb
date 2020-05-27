@@ -14,7 +14,7 @@ test_name "C14783: facter -p loads facts from puppet" do
     end
 
     step "Agent #{agent}: create external fact" do
-      agent.mkdir_p(external_dir)
+      agent
       create_remote_file(agent, external_file, "external=external")
     end
 
