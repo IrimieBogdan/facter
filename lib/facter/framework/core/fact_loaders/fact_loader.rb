@@ -2,7 +2,7 @@
 
 module Facter
   class FactLoader
-    include Singleton
+    # include Singleton
 
     attr_reader :internal_facts, :external_facts, :facts
 
