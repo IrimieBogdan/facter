@@ -123,6 +123,19 @@ module Facter
       nil
     end
 
+    # Define a new fact or extend an existing fact.
+    #
+    # @param name [Symbol] The name of the fact to define
+    # @param options [Hash] A hash of options to set on the fact
+    #
+    # @return [Facter::Util::Fact] The fact that was defined
+    #
+    # @api public
+    def define_fact(name, options = {}, &block)
+      options[:fact_type] = :custom
+      LegacyFacter.define_fact(name, options, &block)
+    end
+
     def on_message(&block)
       Facter::Log.on_message(&block)
     end
@@ -144,6 +157,26 @@ module Facter
     # @api public
     def debugging(debug_bool)
       Facter::Options[:debug] = debug_bool
+    end
+
+    # Iterates over fact names and values
+    #
+    # @yieldparam [String] name the fact name
+    # @yieldparam [String] value the current value of the fact
+    #
+    # @return [Facter]
+    #
+    # @api public
+    def each
+      log_blocked_facts
+      resolved_facts = Facter::FactManager.instance.resolve_facts
+      SessionCache.invalidate_all_caches
+
+      resolved_facts.each do |fact|
+        yield(fact.name, fact.value)
+      end
+
+      self
     end
 
     # Returns a fact object by name.  If you use this, you still have to
@@ -173,6 +206,16 @@ module Facter
       LegacyFacter.reset
       Options[:custom_dir] = []
       Options[:external_dir] = []
+      nil
+    end
+
+    # Loads all facts
+    #
+    # @return [nil]
+    #
+    # @api public
+    def loadfacts
+      LegacyFacter.loadfacts
       nil
     end
 

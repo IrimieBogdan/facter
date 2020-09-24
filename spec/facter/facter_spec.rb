@@ -469,6 +469,32 @@ describe Facter do
     end
   end
 
+  describe '#define_fact' do
+    it 'sends call to LegacyFacter' do
+      allow(LegacyFacter).to receive(:define_fact)
+
+      Facter.define_fact('fact_name') {}
+
+      expect(LegacyFacter).to have_received(:define_fact).once.with('fact_name', { fact_type: :custom })
+    end
+  end
+
+  describe '#loadfacts' do
+    it 'sends calls to LegacyFacter' do
+      allow(LegacyFacter).to receive(:loadfacts)
+
+      Facter.loadfacts
+
+      expect(LegacyFacter).to have_received(:loadfacts).once
+    end
+
+    it 'returns nil' do
+      allow(LegacyFacter).to receive(:loadfacts)
+
+      expect(Facter.loadfacts).to be_nil
+    end
+  end
+
   describe '#trace?' do
     it 'returns trace variable' do
       expect(Facter).not_to be_trace
@@ -707,6 +733,16 @@ describe Facter do
       result = Facter.warn('message')
 
       expect(result).to be_nil
+    end
+  end
+
+  describe '#each' do
+    it 'returns one resolved fact' do
+      mock_fact_manager(:resolve_facts, [os_fact])
+
+      result = {}
+      Facter.each { |name, value| result[name] = value }
+      expect(result).to eq({ fact_name => fact_value })
     end
   end
 end
