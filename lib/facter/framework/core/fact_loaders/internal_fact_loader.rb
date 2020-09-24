@@ -2,6 +2,7 @@
 
 module Facter
   class InternalFactLoader
+    include Singleton
     attr_reader :facts
 
     def core_facts
