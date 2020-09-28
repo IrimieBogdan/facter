@@ -87,7 +87,7 @@ module Facter
 
     def core_value(user_query)
       user_query = user_query.to_s
-      resolved_facts = Facter::FactManager.instance.resolve_core([user_query])
+      resolved_facts = Facter::FactManager.new.resolve_core([user_query])
       fact_collection = FactCollection.new.build_fact_collection!(resolved_facts)
       splitted_user_query = Facter::Utils.split_user_query(user_query)
       fact_collection.dig(*splitted_user_query)
@@ -169,8 +169,7 @@ module Facter
     # @api public
     def each
       log_blocked_facts
-      resolved_facts = Facter::FactManager.instance.resolve_facts
-      SessionCache.invalidate_all_caches
+      resolved_facts = Facter::FactManager.new.resolve_facts
 
       resolved_facts.each do |fact|
         yield(fact.name, fact.value)
@@ -269,8 +268,7 @@ module Facter
     def to_hash
       log_blocked_facts
 
-      resolved_facts = Facter::FactManager.instance.resolve_facts
-      Facter::SessionCache.invalidate_all_caches
+      resolved_facts = Facter::FactManager.new.resolve_facts
       Facter::FactCollection.new.build_fact_collection!(resolved_facts)
     end
 
@@ -307,8 +305,7 @@ module Facter
 
     def values(options, user_queries)
       init_cli_options(options, user_queries)
-      resolved_facts = Facter::FactManager.instance.resolve_facts(user_queries)
-      Facter::SessionCache.invalidate_all_caches
+      resolved_facts = Facter::FactManager.new.resolve_facts(user_queries)
 
       if user_queries.count.zero?
         Facter::FactCollection.new.build_fact_collection!(resolved_facts)
@@ -335,8 +332,7 @@ module Facter
       init_cli_options(cli_options, args)
       logger.info("executed with command line: #{ARGV.drop(1).join(' ')}")
       log_blocked_facts
-      resolved_facts = Facter::FactManager.instance.resolve_facts(args)
-      SessionCache.invalidate_all_caches
+      resolved_facts = Facter::FactManager.new.resolve_facts(args)
       fact_formatter = Facter::FormatterFactory.build(Facter::Options.get)
 
       status = error_check(resolved_facts)
@@ -418,8 +414,7 @@ module Facter
     # @return [ResolvedFact]
     def resolve_fact(user_query)
       user_query = user_query.to_s
-      resolved_facts = Facter::FactManager.instance.resolve_facts([user_query])
-      SessionCache.invalidate_all_caches
+      resolved_facts = Facter::FactManager.new.resolve_facts([user_query])
       # we must make a distinction between custom facts that return nil and nil facts
       # Nil facts should not be packaged as ResolvedFacts! (add_fact_to_searched_facts packages facts)
       resolved_facts = resolved_facts.reject { |fact| fact.type == :nil }

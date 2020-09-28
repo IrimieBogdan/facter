@@ -2,12 +2,11 @@
 
 module Facter
   class FactManager
-    include Singleton
 
     def initialize
       @internal_fact_mgr = InternalFactManager.new
       @external_fact_mgr = ExternalFactManager.new
-      @fact_loader = FactLoader.instance
+      @fact_loader = FactLoader.new
       @log = Log.new(self)
     end
 
