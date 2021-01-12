@@ -43,6 +43,8 @@ module Facter
     end
 
     def hash_to_hocon(fact_collection)
+      require 'hocon/config_value_factory'
+
       render_opts = Hocon::ConfigRenderOptions.new(false, false, true, false)
       Hocon::ConfigFactory.parse_string(fact_collection.to_json).root.render(render_opts)
     end

@@ -2,9 +2,6 @@
 
 require 'open3'
 require 'json'
-require 'yaml'
-require 'hocon'
-require 'hocon/config_value_factory'
 require 'singleton'
 require 'logger'
 

@@ -32,7 +32,12 @@ module Facter
       end
 
       def refresh_config(config_path)
-        @conf = File.readable?(config_path) ? Hocon.load(config_path) : {}
+        @conf = if File.readable?(config_path)
+                  require 'hocon'
+                  Hocon.load(config_path)
+                else
+                  {}
+                end
       end
 
       private
